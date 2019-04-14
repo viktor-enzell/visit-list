@@ -60,6 +60,7 @@ class App extends Component {
           .then(message => {
               this.setState({message: message});
           });
+        // TODO: Add marker to map
     }
 
     removeLocation(name) {
@@ -77,13 +78,12 @@ class App extends Component {
               <div>
                   {this.state.locations.map(item =>
                     <div key={item.toString()} className="location">
-                        <text className="locationName">{item}</text>
-                        <button className="delBtn">Mark as visited</button>
-                        <button className="viewBtn">View on map</button>
+                        <div className="locationName">{item}</div>
+                        <button className="delBtn" onClick={() => this.removeLocation(item.toString())}>Mark as visited</button>
+                        <button className="viewBtn" onClick={() => this.getLocation(item.toString())}>View on map</button>
                     </div>
                   )}
               </div>
-              <p>{this.state.message}</p>
           </div>
         );
     }
