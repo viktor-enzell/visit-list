@@ -1,6 +1,8 @@
 # ToGo List
 This is ... 
 
+Maven project structure is set up with https://start.spring.io/.
+
 ## Dependencies
 
 ## Running the application
