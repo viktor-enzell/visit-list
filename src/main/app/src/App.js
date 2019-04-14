@@ -40,8 +40,6 @@ class App extends Component {
               .setLngLat(e.lngLat)
               .setHTML('<input type="text"/><button>Save location</button>')
               .addTo(map);
-            this.setLocation("Paris", "LONG LAT");
-            this.getLocation("Paris")
         });
     }
 
@@ -78,7 +76,11 @@ class App extends Component {
               <div ref={el => this.mapContainer = el} className="map"/>
               <div>
                   {this.state.locations.map(item =>
-                    <p key={item.toString()}>{item}</p>
+                    <div key={item.toString()} className="location">
+                        <text className="locationName">{item}</text>
+                        <button className="delBtn">Mark as visited</button>
+                        <button className="viewBtn">View on map</button>
+                    </div>
                   )}
               </div>
               <p>{this.state.message}</p>
