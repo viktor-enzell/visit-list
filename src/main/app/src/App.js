@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
 import './App.css';
+import Popup from './popup'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidmlrdG9yLWVuemVsbCIsImEiOiJjanVkMmJ4OXAwdWc5NDNydnh5dWswOXBuIn0.eOW5hw_9MKZCw7OMofltlg';
 
@@ -36,14 +38,18 @@ class App extends Component {
         });
 
         map.on('click', (e) => {
+            const placeholder = document.createElement('div');
+            ReactDOM.render(<Popup setLocation={this.setLocation.bind(this)} lngLat={e.lngLat}/>, placeholder);
+
             new mapboxgl.Popup()
               .setLngLat(e.lngLat)
-              .setHTML('<input type="text"/><button>Save location</button>')
+              .setDOMContent(placeholder)
               .addTo(map);
         });
     }
 
     setLocation(name, lngLat) {
+        console.log("[" + lngLat.lng +"," + lngLat.lat + "]");
         fetch('/api/setLocation',
           {
               method: 'POST',
@@ -60,6 +66,7 @@ class App extends Component {
           .then(message => {
               this.setState({message: message});
           });
+
         // TODO: Add marker to map
     }
 
