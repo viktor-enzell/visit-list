@@ -10,18 +10,16 @@ And the initial React project structure was generated with npx create-react-app.
 
 The application works like ...
 
-
 The React frontend can be found at: src/main/app/src/.
 
 The Java backend can be found at: src/main/java/com/fullstack/togo/.
 
 
 ## Personal thoughts
-I chose React as the frontend framework since it seems to be what is used at Hitta.se. 
-I don't have too much experience in React so I'm not sure that I have followed all conventions.
-The same goes for the API, I don't have much experience in writing REST APIs so I probably didn't follow all the conventions.
+I don't have much experience in building REST APIs and I haven't worked with Spring or MongoDB before, 
+so I probably didn't follow all the conventions.
 I left out the part "User can filter saved places" since I was not sure what was meant by it.
-Overall I think it worked out fine.
+But overall I think it worked out fine.
 
 
 ## Dependencies
