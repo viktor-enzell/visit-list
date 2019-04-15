@@ -3,18 +3,18 @@
     top: 5%;
     right: 20%;
     left: 20%;
-    bottom: 20%;
+    bottom: 0;
 }
 
 .map {
     width: 100%;
-    height: 50%;
+    height: 60%;
 }
 
 .location {
     height: 54px;
     margin-top: 3px;
-    background-color: lightblue;
+    background-color: #F2F2F2;
 }
 
 .locationName {
@@ -23,13 +23,13 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .viewBtn {
     background-color: #4CAF50;
-    border: none;
     color: #ffffff;
+    border: none;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -40,13 +40,32 @@
 
 .delBtn {
     background-color: #f44336;
-    border: none;
     color: #ffffff;
+    border: none;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     float: right;
+}
+
+.addBtn {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float: right;
     margin-left: 5px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: #000000;
 }
