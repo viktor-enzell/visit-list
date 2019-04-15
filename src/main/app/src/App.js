@@ -13,7 +13,9 @@ class App extends Component {
             lng: 5,
             lat: 34,
             zoom: 1.5,
-            locations: ["London", "Paris", "Istanbul"]
+            locations: [],
+            marker: new mapboxgl.Marker(),
+            popup: null
         };
     }
 
@@ -26,6 +28,10 @@ class App extends Component {
             center: [lng, lat],
             zoom
         });
+
+        this.state.marker
+          .setLngLat([0, 90])
+          .addTo(map);
 
         map.on('move', () => {
             const {lng, lat} = map.getCenter();
@@ -41,40 +47,54 @@ class App extends Component {
             const placeholder = document.createElement('div');
             ReactDOM.render(<Popup setLocation={this.setLocation.bind(this)} lngLat={e.lngLat}/>, placeholder);
 
-            new mapboxgl.Popup()
-              .setLngLat(e.lngLat)
-              .setDOMContent(placeholder)
-              .addTo(map);
+            this.setState({
+                popup: new mapboxgl.Popup()
+                  .setLngLat(e.lngLat)
+                  .setDOMContent(placeholder)
+                  .addTo(map)
+            });
         });
     }
 
     setLocation(name, lngLat) {
-        console.log("[" + lngLat.lng +"," + lngLat.lat + "]");
+        this.setState({marker: this.state.marker.setLngLat([0, 90]), popup: this.state.popup.remove()});
         fetch('/api/setLocation',
           {
               method: 'POST',
               body: JSON.stringify({
                   name: name,
-                  lngLat: lngLat,
-              }).then
+                  lngLat: lngLat.lng + "," + lngLat.lat,
+              })
+          })
+          .then(response => response.text())
+          .then(message => {
+              this.setState(previousState => ({
+                  locations: [...previousState.locations, name]
+              }));
           });
     }
 
     getLocation(name) {
+        this.setState({popup: this.state.popup.remove()});
         fetch('/api/getLocation', {method: 'POST', body: name})
           .then(response => response.text())
           .then(message => {
-              this.setState({message: message});
+              console.log(message.split(","));
+              this.setState({marker: this.state.marker.setLngLat(message.split(","))});
           });
-
-        // TODO: Add marker to map
     }
 
     removeLocation(name) {
+        this.setState({marker: this.state.marker.setLngLat([0, 90]), popup: this.state.popup.remove()});
         fetch('/api/removeLocation', {method: 'DELETE', body: name})
           .then(response => response.text())
           .then(message => {
-              this.setState({message: message});
+              let updatedLocations = [...this.state.locations];
+              let index = updatedLocations.indexOf(name);
+              if (index !== -1) {
+                  updatedLocations.splice(index, 1);
+                  this.setState({locations: updatedLocations});
+              }
           });
     }
 
@@ -86,8 +106,11 @@ class App extends Component {
                   {this.state.locations.map(item =>
                     <div key={item.toString()} className="location">
                         <div className="locationName">{item}</div>
-                        <button className="delBtn" onClick={() => this.removeLocation(item.toString())}>Mark as visited</button>
-                        <button className="viewBtn" onClick={() => this.getLocation(item.toString())}>View on map</button>
+                        <button className="delBtn" onClick={() => this.removeLocation(item.toString())}>Mark as
+                            visited
+                        </button>
+                        <button className="viewBtn" onClick={() => this.getLocation(item.toString())}>View on map
+                        </button>
                     </div>
                   )}
               </div>
