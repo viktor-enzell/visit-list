@@ -8,7 +8,12 @@ So I chose to place the React client within the Maven project and let Maven call
 The initial Maven project structure was generated with https://start.spring.io/.
 And the initial React project structure was generated with npx create-react-app.
 
-The application works like ...
+How the application works: A user selects a spot on the map, enters a name and clicks button to add. 
+A request containing the name and location is sent to the backend where the location is stored with the name as key.
+The names of saved places are also stored in the frontend in order to render the list of names.
+The user can choose to view a stored location, in this case a request containing the name is sent to the backend and the location is returned.
+A marker is added to the map at the retrieved location. 
+The user also has the choice to remove a location, in this case a request containing the name is sent to the backend and the location is removed from the database.
 
 The React frontend can be found at: src/main/app/src/.
 
