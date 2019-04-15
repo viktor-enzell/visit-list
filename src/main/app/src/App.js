@@ -79,7 +79,6 @@ class App extends Component {
         fetch('/api/getLocation', {method: 'POST', body: name})
           .then(response => response.text())
           .then(message => {
-              console.log(message.split(","));
               this.setState({marker: this.state.marker.setLngLat(message.split(","))});
           });
     }

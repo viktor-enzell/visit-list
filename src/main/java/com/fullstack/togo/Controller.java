@@ -2,16 +2,17 @@ package com.fullstack.togo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class Controller {
 
-    private Map<String, String> locations = new HashMap<>();
+    private MongoClient mongoClient = new MongoClient();
+    private DB database = mongoClient.getDB("Database");
+    private DBCollection locations = database.getCollection("Locations");
 
     @RequestMapping(value = "/api/setLocation", method = RequestMethod.POST)
     public void setLocation(@RequestBody String bodyString) throws IOException {
@@ -19,16 +20,21 @@ public class Controller {
         JsonNode body = mapper.readTree(bodyString);
         String name = body.get("name").asText();
         String lngLat = body.get("lngLat").asText();
-        locations.put(name, lngLat);
+
+        DBObject location = new BasicDBObject("name", name).append("lngLat", lngLat);
+        locations.insert(location);
     }
 
     @RequestMapping(value = "/api/getLocation", method = RequestMethod.POST)
     public String getLocation(@RequestBody String name) {
-        return locations.get(name);
+        DBObject query = new BasicDBObject("name", name);
+        DBCursor cursor = locations.find(query);
+        return (String)cursor.one().get("lngLat");
     }
 
     @RequestMapping(value = "/api/removeLocation", method = RequestMethod.DELETE)
     public void removeLocation(@RequestBody String name) {
-        locations.remove(name);
+        DBObject query = new BasicDBObject("name", name);
+        locations.remove(query);
     }
 }
