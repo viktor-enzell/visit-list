@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 
+/** Input field and button used inside Mapbox popup. */
 class Popup extends Component {
     readInput(e) {
         this.inputValue = e.target.value;
     }
 
+    /** The setLocation method is passed from parent and called when the Add button is clicked. */
     render() {
         const {setLocation, lngLat} = this.props;
         return (
