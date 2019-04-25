@@ -1,10 +1,10 @@
-# ToGo List
-This is a fullstack assignment for Hitta.se, implementing a ToGo list.
+# Visit List
+This is a web app for you to list all the places that you want to visit by interacting with a MapBox map.
 It is implemented using **React.js** as the frontend framework and a backend REST API implemented using **Java** and the **Spring** framework. 
 A **MongoDB** database is used in the backend.
 
 There are two different build tools (npm for React and Maven for Java).
-So I chose to place the React client within the Maven project and let Maven call npm.
+So the React client is placed within the Maven project and Maven calls npm on build and execution.
 The initial Maven project structure was generated with https://start.spring.io/.
 And the initial React project structure was generated with npx create-react-app.
 
@@ -20,13 +20,6 @@ The React frontend can be found at: src/main/app/src/.
 The Java backend can be found at: src/main/java/com/fullstack/togo/.
 
 
-## Personal thoughts
-I don't have much experience in building REST APIs and I haven't worked with Spring or MongoDB before, 
-so I probably didn't follow all the conventions.
-I left out the part "User can filter saved places" since I was not sure what was meant by it.
-But overall I think it worked out fine.
-
-
 ## Dependencies
 Java 1.8, Maven, MongoDB, npm.
 
@@ -40,3 +33,4 @@ When that is done the application can be built and executed like this:
 mvn clean install
 java -jar target/togo-0.0.1-SNAPSHOT.jar
 ```
+The application runs on ```localhost:8080``` by default.
