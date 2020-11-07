@@ -1,4 +1,4 @@
-# VisitList
+# Visit List
 This is a web app for you to list all the places that you want to visit by interacting with a MapBox map.
 It is implemented using **React.js** as the frontend framework and a backend REST API implemented using **Java** and the **Spring** framework. 
 A **MongoDB** database is used in the backend.
